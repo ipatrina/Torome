@@ -1,8 +1,8 @@
 <?php
 
 	// Torome
-	// Version: 3.0.2
-	// Date: 2023.12
+	// Version: 3.0.3
+	// Date: 2024.10
 
 	include 'config.php';
 
@@ -20,7 +20,7 @@
 	}
 
 	function urlencode_url($url) {
-		return str_replace(['%26', '%2F', '%3A', '%3D', '%3F'], ['&', '/', ':', '=', '?'], rawurlencode($url));
+		return str_replace(['%25', '%26', '%2F', '%3A', '%3D', '%3F'], ['%', '&', '/', ':', '=', '?'], rawurlencode($url));
 	}
 
 	function ascii_str($str) {
@@ -116,7 +116,7 @@
 				$body_type = 'main';
 				goto print_body;
 			}
-			else {				
+			else {
 				if ($new_type == 1 && strstr($new_data, '://') == null) {
 					if (!startsWith($new_data, "./")) {
 						$new_type = 100;
@@ -134,7 +134,7 @@
 					$message_id = 'no_compliance';
 					$body_type = 'main';
 					goto print_body;
-				}        
+				}
 				$linkid_norepeat = 0;
 				if ($new_linkid == null) {
 					$gen_linkid = getLinkIdCount() + 100000 + 1;
@@ -228,11 +228,11 @@
 						goto print_body;
 					}
 					else {
-						$message_id = 'linkid_deleted';				
+						$message_id = 'linkid_deleted';
 					}
 				}
 				else {
-					$message_id = 'incorrect_password';			
+					$message_id = 'incorrect_password';
 				}
 				$body_type = 'management';
 				goto print_body;
@@ -307,9 +307,9 @@
 	}
 
 	if (!isset($body_type)) {
-		$body_type = 'main';	
+		$body_type = 'main';
 	}
-	
+
 	if ($body_type == 'href') {
 		$href_comment = 'Your shortened URL goes to: '.$input_data;
 		if ($input_type != 1) {
@@ -375,7 +375,7 @@
 <?php
 	}
 ?>
-			<h5 style="color: black; text-align: center;">© 2021-2023 Torome</h5>
+			<h5 style="color: black; text-align: center;">© 2021-2024 Torome</h5>
 			<br>
 			<br>
 			<br>
