@@ -1,8 +1,8 @@
 <?php
 
 	// Torome
-	// Version: 3.0.3
-	// Date: 2024.10
+	// Version: 3.0.4
+	// Date: 2025.04
 
 	include 'config.php';
 
@@ -20,7 +20,7 @@
 	}
 
 	function urlencode_url($url) {
-		return str_replace(['%25', '%26', '%2F', '%3A', '%3D', '%3F'], ['%', '&', '/', ':', '=', '?'], rawurlencode($url));
+		return str_replace(['%23', '%25', '%26', '%2F', '%3A', '%3D', '%3F'], ['#', '%', '&', '/', ':', '=', '?'], rawurlencode($url));
 	}
 
 	function ascii_str($str) {
