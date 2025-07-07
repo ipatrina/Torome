@@ -75,7 +75,75 @@ if ($_loc_1 = "f+d") {
 rewrite / /fwlink/index.php;
 ```
 
+
+# Upgrade / 升级说明
+
+To upgrade your V3 data table to V4, you need to first migrate the V3 data table, for example:
+
+```
+CREATE TABLE fwlinkv3 (LinkID varchar(100), Type int, Secret varchar(100), Data varchar(10000), PRIMARY KEY(LinkID));
+INSERT INTO fwlinkv3 SELECT * FROM fwlink;
+DROP TABLE fwlink;
+```
+
+Then, you need to create V4 table and configure the V4 config.php file ready.
+
+Finally, you can use the following PHP code to complete the upgrade:
+
+```
+<?php
+include 'config.php';
+
+function getUUID() {
+    return sprintf('%04x%04x-%04x-%04x-%04x-%012x', mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0x0fff) | 0x4000, mt_rand(0, 0x3fff) | 0x8000, time());
+}
+
+$result = mysqli_query($sql_connection, "SELECT LinkID, Type, Secret, Data FROM fwlinkv3");
+while ($row = mysqli_fetch_assoc($result)) {
+    $id = getUUID();
+    $object = $row['LinkID'];
+    $token = $row['Secret'];
+    $life = 0;
+    $tag = "";
+    if ($row['Type'] == 1) {
+        $method = "url";
+        $content = $row['Data'];
+    } elseif ($row['Type'] == 100) {
+        $method = "text";
+        $content = base64_decode($row['Data']);
+        if ($content === false) {
+            $content = "";
+        }
+    } else {
+        $method = "";
+        $content = "";
+    }
+    $stmt = mysqli_prepare($sql_connection, "INSERT INTO `$table` (id, object, token, life, tag, method, content) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "sssssss", $id, $object, $token, $life, $tag, $method, $content);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+mysqli_free_result($result);
+print "OK";
+?>
+```
+
+
 # Changelog / 更新日志
+
+**4.0.0 (2025/07/07)**
+
+1.增加隐私保护功能，支持创建可自动删除的临时短网址。
+
+2.仅限管理员操作时，管理员可设置默认跳转页面和登录入口(例如"http://toro.me/?login")。
+
+3.优化了随机短网址生成机制。
+
+4.升级了数据表结构。
+
+5.优化了数据库查询代码。
+
+---
 
 **3.0.4 (2025/04/17)**
 
