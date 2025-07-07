@@ -14,10 +14,10 @@
 	$password = 'password';
 //
 // Login entry:
-  $login = 'login';
+	$login = 'login';
 //
 // Home URL:
-  $home = "https://www.google.com";
+	$home = "https://www.google.com";
 //
 // Root URL:
 	$host = 'http://'.$_SERVER['HTTP_HOST'].'/';
