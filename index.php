@@ -1,14 +1,14 @@
 <?php
 
   // Torome
-  // Version: 4.0.0
-  // Date: 2025.07
+  // Version: 4.0.1
+  // Date: 2025.11
 
 include "config.php";
 
 function is_valid_linkid($id)
 {
-    return preg_match('/^[A-Za-z0-9_-]+$/', $id);
+    return preg_match('/^[A-Za-z0-9._-]+$/', $id);
 }
 
 function generate_unique_linkid()
@@ -435,7 +435,7 @@ if ($body_type == "href") {
      } ?>">&nbsp;<label style="font-size: 14px;">(optional)</label>
 				</div>
 				<div style="margin-top: 10px; margin-bottom: 10px;">
-        <label><input style="color: black; font-size: 16px;" type="checkbox" name="privacy" value="1">Only keep for 30 minutes</label>&nbsp;<label style="font-size: 14px;">(privacy option)</label>
+        <label><input style="color: black; font-size: 16px;" type="checkbox" name="privacy" value="1">Delete after 30 minutes</label>&nbsp;<label style="font-size: 14px;">(privacy option)</label>
         </div>
 				<br>
  			   <input type="submit" value="Shorten!" style="width: 150px; height: 40px; font-size: 22px;">
