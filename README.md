@@ -70,7 +70,7 @@ if (!-d $request_filename) {
 	set $_loc_1 $_loc_1+d;
 }
 if ($_loc_1 = "f+d") {
-	rewrite ^/([^/]+)/?$ /fwlink/?LinkID=$1;
+	rewrite ^/(?<_loc_2>[^/]+)/?$ /fwlink/?LinkID=$_loc_2 last;
 }
 rewrite / /fwlink/index.php;
 ```
